@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+# Manual
+**/*.ipynb
+rich/*
+config/personal.conf
