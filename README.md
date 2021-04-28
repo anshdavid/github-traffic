@@ -8,6 +8,9 @@ A simple python program that fetches users repository traffic and insight
     <img  height="300" src="docs/images/demo.gif">
 </p>
 
+<p align="center">
+    <img  height="300" src="docs/images/demo.png">
+</p>
 ### Usage
 
 **`python3 cli.py --config=config/demo.conf`**
@@ -30,6 +33,16 @@ You will need to generate a [Personal Access Token](https://docs.github.com/en/g
 ---
 
 # Changelog
+
+<!-- ## Version: 0.2.0 - 2021-04-27
+
+### Added
+
+- Userinfo
+
+### Changed
+
+- console output -->
 
 ## Version: 0.1 - 2021-04-26
 

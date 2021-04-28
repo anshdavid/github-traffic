@@ -35,10 +35,22 @@ ntClone = NamedTuple(
     ],
 )
 
-ntRepos = NamedTuple(
-    "ntRepos",
+ntRepo = NamedTuple(
+    "ntRepo",
     [
         ("name", str),
+        ("stargazers_count", int),
+        ("forks_count", int),
+    ],
+)
+
+ntUserInfo = NamedTuple(
+    "ntUserInfo",
+    [
+        ("followers", int),
+        ("following", int),
+        ("public_repos", int),
+        # ("total_private_repos", int),
     ],
 )
 

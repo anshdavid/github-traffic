@@ -18,34 +18,40 @@ class APIRegister:
         """
 
         self.apiRegister = {
+            "userInfo": ntApi(
+                "%s/user",
+                ["baseurl"],
+                list(ntUserInfo._fields),
+                ntUserInfo,  # type:ignore
+            ),
             "repos": ntApi(
                 "%s/users/%s/repos",
                 ["baseurl", "username"],
-                ["name"],
-                ntRepos,  # type:ignore
+                list(ntRepo._fields),
+                ntRepo,  # type:ignore
             ),
             "referrers": ntApi(
                 "%s/repos/%s/%s/traffic/popular/referrers",
                 ["baseurl", "username", "repo"],
-                ["referrer", "count", "uniques"],
+                list(ntReferral._fields),
                 ntReferral,  # type:ignore
             ),
             "paths": ntApi(
                 "%s/repos/%s/%s/traffic/popular/paths",
                 ["baseurl", "username", "repo"],
-                ["path", "title", "count", "uniques"],
+                list(ntPath._fields),
                 ntPath,  # type:ignore
             ),
             "views": ntApi(
                 "%s/repos/%s/%s/traffic/views",
                 ["baseurl", "username", "repo"],
-                ["count", "uniques"],
+                list(ntView._fields),
                 ntView,  # type:ignore
             ),
             "clones": ntApi(
                 "%s/repos/%s/%s/traffic/clones",
                 ["baseurl", "username", "repo"],
-                ["count", "uniques"],
+                list(ntClone._fields),
                 ntClone,  # type:ignore
             ),
         }
@@ -69,15 +75,17 @@ class APIRegister:
 class RequestHandler:
     def __init__(
         self,
+        username: str,
         token: str,
         register: APIRegister,
         baseurl: str = "https://api.github.com",
     ) -> None:
 
+        self.username = username
         self.token = token
         self.baseurl = baseurl
         self.apiRegister = register
-        self.kwargs_ = {"baseurl": self.baseurl}
+        self.kwargs_ = {"baseurl": self.baseurl, "username": self.username}
 
     def ApiRquest(self, url):
         req = request.Request(
@@ -117,7 +125,7 @@ class RequestHandler:
                 result = list(
                     map(
                         lambda ddict: api.type(  # type:ignore
-                            **OrderedDict(
+                            **dict(
                                 filter(
                                     lambda kv: kv[0] in api.provides,
                                     ddict.items(),
@@ -129,7 +137,7 @@ class RequestHandler:
                 )
             else:
                 result = api.type(  # type:ignore
-                    **OrderedDict(
+                    **dict(
                         filter(
                             lambda elem: elem[0] in api.provides,
                             response.items(),

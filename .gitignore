@@ -133,3 +133,5 @@ dmypy.json
 **/*.ipynb
 rich/*
 config/personal.conf
+repo.json
+run.bak.py
