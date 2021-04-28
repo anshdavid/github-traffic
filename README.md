@@ -4,9 +4,9 @@ GITHUB-TRAFFIC
 
 A simple python program that fetches users repository traffic and insight
 
-<p align="center">
+<!-- <p align="center">
     <img  height="300" src="docs/images/demo.gif">
-</p>
+</p> -->
 
 <p align="center">
     <img  height="300" src="docs/images/demo.png">
