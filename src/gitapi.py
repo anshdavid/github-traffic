@@ -5,6 +5,7 @@ from urllib.request import Request, urlopen
 from collections import OrderedDict, namedtuple
 
 from .dataclass import *
+from pprint import pprint
 
 
 class APIRegister:
@@ -95,9 +96,7 @@ class RequestHandler:
         return json.load(request.urlopen(req))
 
     # ? making it a __call__ enables to be used as a decorator in the future!!
-    def __call__(
-        self, call, args: Dict
-    ) -> Union[NamedTuple, List[NamedTuple], None]:
+    def __call__(self, call, args: Dict) -> Union[NamedTuple, List[NamedTuple], None]:
 
         api = self.apiRegister.GetAPI(call)
         if api is None:

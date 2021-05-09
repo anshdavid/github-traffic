@@ -24,16 +24,13 @@ def main(args):
 
     instanceRecord = Record()
 
-    instanceRQ = RequestHandler(
-        username=username, token=token, register=APIRegister()
-    )
+    instanceRQ = RequestHandler(username=username, token=token, register=APIRegister())
 
     # ! might display on header panel
     userInfo = instanceRQ(
         call="userInfo",
         args={},
     )
-    print("----", userInfo)
 
     # * init from here
 
@@ -44,7 +41,11 @@ def main(args):
 
     assert isinstance(repos, list)
 
-    instanceConsole = TrafficProgress(numRepos=len(repos))
+    instanceConsole = TrafficProgress(
+        numRepos=len(repos),
+        follower=userInfo.followers,  # type:ignore
+        following=userInfo.following,  # type:ignore
+    )
 
     instanceConsole.progressTotal.console.print(
         Panel(
@@ -79,9 +80,7 @@ def main(args):
                 args={"repo": repo.name},
             )
             instanceConsole.UpdateStatDescription("referrers")
-            instanceRecord.referrals.update(
-                {repo.name: ret}
-            )  # type:ignore
+            instanceRecord.referrals.update({repo.name: ret})  # type:ignore
             instanceConsole.StepTotal()
             instanceConsole.StepStat()
 

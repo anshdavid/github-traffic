@@ -13,13 +13,11 @@ from .dataclass import ntClone, ntPath, ntReferral, ntView, ntRepo
 
 class Record:
     def __init__(self) -> None:
-        self.info: Dict[str, Optional[ntRepo]] = dict()
-        self.referrals: Dict[str, Optional[ntReferral]] = dict()
-        self.paths: DefaultDict[
-            str, Optional[List[ntPath]]
-        ] = defaultdict()
-        self.views: Dict[str, Optional[ntView]] = dict()
-        self.clones: Dict[str, Optional[ntClone]] = dict()
+        self.info: Dict[str, ntRepo] = dict()
+        self.referrals: Dict[str, ntReferral] = dict()
+        self.paths: DefaultDict[str, List[ntPath]] = defaultdict()
+        self.views: Dict[str, ntView] = dict()
+        self.clones: Dict[str, ntClone] = dict()
 
         self.table = Table(
             title="Repository Statistics",
@@ -38,7 +36,9 @@ class Record:
         self.table.add_column("Clone Count", style="magenta")
         self.table.add_column("Clone Unique", style="green")
         self.table.add_column("Stargazers", style="magenta")
-        self.table.add_column("Forks", style="magenta")
+        self.table.add_column("Forks", style="green")
+        self.table.add_column("Watchers", style="magenta")
+        self.table.add_column("Open Issues", style="green")
 
     def RecordHandler(self, event: NamedTuple):
         pass
@@ -48,9 +48,7 @@ class Record:
     ) -> RenderResult:
 
         assert (
-            len(self.views.keys())
-            == len(self.clones.keys())
-            == len(self.info.keys())
+            len(self.views.keys()) == len(self.clones.keys()) == len(self.info.keys())
         )
 
         for index, keyv in enumerate(self.views.keys()):
@@ -63,6 +61,8 @@ class Record:
                 str(self.clones[keyv].uniques),
                 str(self.info[keyv].stargazers_count),
                 str(self.info[keyv].forks_count),
+                str(self.info[keyv].watchers_count),
+                str(self.info[keyv].open_issues_count),
             )
 
         yield self.table

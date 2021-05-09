@@ -11,6 +11,7 @@ A simple python program that fetches users repository traffic and insight
 <p align="center">
     <img  height="300" src="docs/images/demo.png">
 </p>
+
 ### Usage
 
 **`python3 cli.py --config=config/demo.conf`**

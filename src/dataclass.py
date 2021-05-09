@@ -41,6 +41,8 @@ ntRepo = NamedTuple(
         ("name", str),
         ("stargazers_count", int),
         ("forks_count", int),
+        ("open_issues_count", int),
+        ("watchers_count", int),
     ],
 )
 
